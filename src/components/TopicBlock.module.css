@@ -1,0 +1,205 @@
+.block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  animation: fadeUp 0.3s ease forwards;
+}
+
+.block:hover { border-color: var(--border-hover); }
+.blockOpen { border-color: rgba(124, 111, 205, 0.3); }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.header:hover { background: rgba(124, 111, 205, 0.04); }
+
+.arrow {
+  font-size: 0.65rem;
+  color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s;
+  width: 14px;
+  flex-shrink: 0;
+}
+.arrowOpen { transform: rotate(90deg); color: var(--accent); }
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  flex: 1;
+  color: var(--text);
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: rgba(124, 111, 205, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(124, 111, 205, 0.25);
+  flex-shrink: 0;
+}
+
+.actions { display: flex; gap: 8px; }
+
+.delTopicBtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.delTopicBtn:hover {
+  border-color: var(--accent3);
+  color: var(--accent3);
+  background: var(--accent3-glow);
+}
+
+/* Panel */
+.panel {
+  border-top: 1px solid var(--border);
+  animation: slideDown 0.2s ease forwards;
+}
+
+.emptyPanel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 18px 36px;
+  font-style: italic;
+}
+
+/* Subtopic row */
+.subRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px 11px 32px;
+  border-bottom: 1px solid rgba(37, 37, 53, 0.7);
+  transition: background 0.15s;
+}
+.subRow:last-of-type { border-bottom: none; }
+.subRow:hover { background: rgba(124, 111, 205, 0.04); }
+
+/* Checkbox */
+.checkInput { display: none; }
+.checkLabel { cursor: pointer; flex-shrink: 0; }
+.checkBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-hover);
+  border-radius: 5px;
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+.checkInput:checked ~ .checkBox,
+.subDone .checkBox {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  box-shadow: 0 0 8px rgba(78, 205, 196, 0.3);
+}
+.checkLabel:hover .checkBox { border-color: var(--accent2); }
+
+.checkMark {
+  font-size: 0.6rem;
+  font-weight: 900;
+  color: #08080e;
+  line-height: 1;
+}
+
+.subName {
+  flex: 1;
+  font-size: 0.88rem;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.subNameDone {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* Note button */
+.noteBtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.noteBtn:hover { border-color: var(--accent2); color: var(--accent2); }
+.noteBtnActive {
+  border-color: rgba(78, 205, 196, 0.45);
+  color: var(--accent2);
+  background: rgba(78, 205, 196, 0.07);
+}
+
+/* Delete subtopic */
+.delSubBtn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.72rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.subRow:hover .delSubBtn { opacity: 1; }
+.delSubBtn:hover { color: var(--accent3); background: var(--accent3-glow); }
+
+/* Add subtopic row */
+.addRow {
+  display: flex;
+  gap: 8px;
+  padding: 10px 20px 10px 32px;
+  border-top: 1px solid rgba(37, 37, 53, 0.5);
+}
+.addInput {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 7px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.addInput:focus { border-color: var(--accent); }
+.addInput::placeholder { color: var(--muted); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
