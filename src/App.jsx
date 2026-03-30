@@ -24,6 +24,11 @@ export default function App() {
   const [noteModal, setNoteModal] = useState({ open: false, data: null });
 
   // ── Handlers: Subjects ──
+  const handleToggleTopic = useCallback((subjectId, topicId) => {
+    store.toggleTopic(subjectId, topicId);
+  }, [store]);
+
+  // ── Handlers: Subtopics ──
   const handleAddSubject = useCallback((name, emoji) => {
     store.addSubject(name, emoji);
     showToast(`"${name}" added ✓`);
@@ -98,6 +103,7 @@ export default function App() {
           onDeleteTopic={handleDeleteTopic}
           onAddSubtopic={handleAddSubtopic}
           onDeleteSubtopic={handleDeleteSubtopic}
+          onToggleTopic={handleToggleTopic}
           onToggleSubtopic={handleToggle}
           onOpenNote={handleOpenNote}
           onReset={handleReset}

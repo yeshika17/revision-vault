@@ -10,6 +10,7 @@ export default function TopicsPage({
   onDeleteTopic,
   onAddSubtopic,
   onDeleteSubtopic,
+  onToggleTopic,
   onToggleSubtopic,
   onOpenNote,
   onReset,
@@ -18,7 +19,6 @@ export default function TopicsPage({
 
   return (
     <div className={styles.page}>
-      {/* Page Header */}
       <div className={styles.header}>
         <div className={styles.emojiWrap}>{subject.emoji}</div>
         <div className={styles.headerText}>
@@ -35,14 +35,12 @@ export default function TopicsPage({
         </div>
       </div>
 
-      {/* Toolbar */}
       <div className={styles.toolbar}>
         <Button variant="primary" onClick={onAddTopic}>+ Add Topic</Button>
         <Button variant="danger" onClick={onReset}>↺ Reset Checkpoints</Button>
         <Button variant="default" onClick={onBack}>← Back</Button>
       </div>
 
-      {/* Topics */}
       {subject.topics.length === 0 ? (
         <div className={styles.empty}>
           <div className={styles.emptyIcon}>🗂️</div>
@@ -55,6 +53,7 @@ export default function TopicsPage({
               key={topic.id}
               subject={subject}
               topic={topic}
+              onToggleTopic={(topicId) => onToggleTopic(subject.id, topicId)}
               onToggle={(topicId, stId) => onToggleSubtopic(subject.id, topicId, stId)}
               onAddSubtopic={(topicId, name) => onAddSubtopic(subject.id, topicId, name)}
               onDeleteSubtopic={(topicId, stId) => onDeleteSubtopic(subject.id, topicId, stId)}

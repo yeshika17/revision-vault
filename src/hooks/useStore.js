@@ -8,7 +8,6 @@ export function useStore() {
     return createSeedData();
   });
 
-  // Auto-save on every change
   useEffect(() => {
     saveState({ subjects });
   }, [subjects]);
@@ -30,7 +29,7 @@ export function useStore() {
     setSubjects(prev =>
       prev.map(s =>
         s.id === subjectId
-          ? { ...s, topics: [...s.topics, { id: uid(), name, subtopics: [] }] }
+          ? { ...s, topics: [...s.topics, { id: uid(), name, done: false, subtopics: [] }] }
           : s
       )
     );
@@ -81,6 +80,23 @@ export function useStore() {
     );
   }, []);
 
+  // ── BUG 1 FIXED: was missing, now added ──
+  const toggleTopic = useCallback((subjectId, topicId) => {
+    setSubjects(prev =>
+      prev.map(s =>
+        s.id === subjectId
+          ? {
+              ...s,
+              topics: s.topics.map(t =>
+                t.id === topicId ? { ...t, done: !t.done } : t
+              ),
+            }
+          : s
+      )
+    );
+  }, []);
+
+  // ── BUG 2 FIXED: was using `note` instead of `!st.done` ──
   const toggleSubtopic = useCallback((subjectId, topicId, subtopicId) => {
     setSubjects(prev =>
       prev.map(s =>
@@ -125,6 +141,7 @@ export function useStore() {
     );
   }, []);
 
+  // ── BUG 3 FIXED: reset now clears topic.done too ──
   const resetCheckpoints = useCallback((subjectId) => {
     setSubjects(prev =>
       prev.map(s =>
@@ -133,6 +150,7 @@ export function useStore() {
               ...s,
               topics: s.topics.map(t => ({
                 ...t,
+                done: false,
                 subtopics: t.subtopics.map(st => ({ ...st, done: false })),
               })),
             }
@@ -149,6 +167,7 @@ export function useStore() {
     deleteTopic,
     addSubtopic,
     deleteSubtopic,
+    toggleTopic,
     toggleSubtopic,
     saveNote,
     resetCheckpoints,
